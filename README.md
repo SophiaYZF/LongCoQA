@@ -4,7 +4,3 @@ This repository contains the code and dataset for the paper **LongCoQA: A Conver
 
 ## Coming Soon
 The full benchmark and code will be made publicly available in the near future.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
