@@ -1,0 +1,60 @@
+diff --git a/src/hipporag/embedding_model/__init__.py b/src/hipporag/embedding_model/__init__.py
+index 86574e4..1f5aafb 100644
+--- a/src/hipporag/embedding_model/__init__.py
++++ b/src/hipporag/embedding_model/__init__.py
+@@ -1 +0,0 @@
+-from .Contriever import ContrieverModel
+@@ -3,6 +1,0 @@ from .base import EmbeddingConfig, BaseEmbeddingModel
+-from .GritLM import GritLMEmbeddingModel
+-from .NVEmbedV2 import NVEmbedV2EmbeddingModel
+-from .OpenAI import OpenAIEmbeddingModel
+-from .Cohere import CohereEmbeddingModel
+-from .Transformers import TransformersEmbeddingModel
+-from .VLLM import VLLMEmbeddingModel
+@@ -16,0 +10 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .GritLM import GritLMEmbeddingModel
+@@ -18,0 +13 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .NVEmbedV2 import NVEmbedV2EmbeddingModel
+@@ -20,0 +16 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .Contriever import ContrieverModel
+@@ -22,0 +19 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .OpenAI import OpenAIEmbeddingModel
+@@ -24,0 +22 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .Cohere import CohereEmbeddingModel
+@@ -26,0 +25 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .Transformers import TransformersEmbeddingModel
+@@ -28,0 +28 @@ def _get_embedding_model_class(embedding_model_name: str = "nvidia/NV-Embed-v2")
++        from .VLLM import VLLMEmbeddingModel
+diff --git a/src/hipporag/information_extraction/openie_openai.py b/src/hipporag/information_extraction/openie_openai.py
+index 8490b3b..2004bce 100644
+--- a/src/hipporag/information_extraction/openie_openai.py
++++ b/src/hipporag/information_extraction/openie_openai.py
+@@ -157 +157,2 @@ class OpenIE:
+-        with ThreadPoolExecutor() as executor:
++        # LongCoQA provider concurrency is capped at four.
++        with ThreadPoolExecutor(max_workers=4) as executor:
+@@ -183 +184 @@ class OpenIE:
+-        with ThreadPoolExecutor() as executor:
++        with ThreadPoolExecutor(max_workers=4) as executor:
+diff --git a/src/hipporag/llm/__init__.py b/src/hipporag/llm/__init__.py
+index d4eccb9..57d0c10 100644
+--- a/src/hipporag/llm/__init__.py
++++ b/src/hipporag/llm/__init__.py
+@@ -8,3 +7,0 @@ from .base import BaseLLM
+-from .bedrock_llm import BedrockLLM
+-from .bedrock_mantle import BedrockMantleLLM
+-from .transformers_llm import TransformersLLM
+@@ -20,0 +18 @@ def _get_llm_class(config: BaseConfig):
++        from .bedrock_mantle import BedrockMantleLLM
+@@ -23,0 +22 @@ def _get_llm_class(config: BaseConfig):
++        from .bedrock_llm import BedrockLLM
+@@ -26,0 +26 @@ def _get_llm_class(config: BaseConfig):
++        from .transformers_llm import TransformersLLM
+diff --git a/src/hipporag/utils/misc_utils.py b/src/hipporag/utils/misc_utils.py
+index 99029a4..4f75ec2 100644
+--- a/src/hipporag/utils/misc_utils.py
++++ b/src/hipporag/utils/misc_utils.py
+@@ -85 +85,2 @@ def text_processing(text):
+-    return re.sub('[^A-Za-z0-9 ]', ' ', text.lower()).strip()
++    # LongCoQA compatibility: retain CJK entity strings instead of erasing them.
++    return re.sub(r'[^\w\u3400-\u4dbf\u4e00-\u9fff ]', ' ', text.lower()).strip()

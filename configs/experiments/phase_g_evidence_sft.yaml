@@ -1,0 +1,67 @@
+seed: 42
+
+data:
+  train_input: artifacts/training/raft_train.jsonl
+  dev_input: artifacts/training/raft_dev.jsonl
+  output_dir: artifacts/training/evidence_sft
+  teacher_provider: qwen37
+  teacher_model: qwen3.7-max
+  teacher_temperature: 0.0
+  teacher_max_tokens: 1400
+  teacher_max_attempts: 3
+  human_audit_rows: 250
+
+training:
+  base_model: models/Qwen/Qwen3.5-9B
+  cpt_adapter: outputs/training/qwen3_5_9b_cpt_conservative_lora
+  human_approval_status: artifacts/training/evidence_sft/pretraining_status.json
+  cells:
+    - id: A1
+      initialization: base
+      objective: raw_answer
+      seed: 42
+      config: configs/training/qwen3_5_9b_evidence_a1_base_raw_s42.yaml
+      output_dir: outputs/training/evidence_a1_base_raw_s42
+    - id: A2
+      initialization: base
+      objective: clean_answer
+      seed: 42
+      config: configs/training/qwen3_5_9b_evidence_a2_base_clean_s42.yaml
+      output_dir: outputs/training/evidence_a2_base_clean_s42
+    - id: A3
+      initialization: base
+      objective: evidence_aware
+      seed: 42
+      config: configs/training/qwen3_5_9b_evidence_a3_base_plan_s42.yaml
+      output_dir: outputs/training/evidence_a3_base_plan_s42
+    - id: A4
+      initialization: cpt
+      objective: raw_answer
+      seed: 42
+      config: configs/training/qwen3_5_9b_evidence_a4_cpt_raw_s42.yaml
+      output_dir: outputs/training/evidence_a4_cpt_raw_s42
+    - id: A5
+      initialization: cpt
+      objective: clean_answer
+      seed: 42
+      config: configs/training/qwen3_5_9b_evidence_a5_cpt_clean_s42.yaml
+      output_dir: outputs/training/evidence_a5_cpt_clean_s42
+    - id: A6
+      initialization: cpt
+      objective: evidence_aware
+      seed: 42
+      config: configs/training/qwen3_5_9b_evidence_a6_cpt_plan_s42.yaml
+      output_dir: outputs/training/evidence_a6_cpt_plan_s42
+    - id: A7
+      initialization: base
+      objective: evidence_aware
+      seed: 43
+      config: configs/training/qwen3_5_9b_evidence_a7_base_plan_s43.yaml
+      output_dir: outputs/training/evidence_a7_base_plan_s43
+    - id: A8
+      initialization: cpt
+      objective: evidence_aware
+      seed: 43
+      config: configs/training/qwen3_5_9b_evidence_a8_cpt_plan_s43.yaml
+      output_dir: outputs/training/evidence_a8_cpt_plan_s43
+

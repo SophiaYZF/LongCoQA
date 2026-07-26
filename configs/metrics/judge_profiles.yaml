@@ -1,0 +1,49 @@
+schema_version: longcoqa-judge-profiles-v1
+profiles:
+  - profile_id: paper-llm3-v1
+    compatibility: approximate
+    scale_min: 0
+    scale_max: 3
+    score_field: score
+    transform: identity
+    scorer_model: paper-reported-judge-unspecified
+    system_prompt: >-
+      Evaluate whether the candidate correctly answers the question given the
+      reference. Return JSON only as {"score": N}, where N is an integer from
+      0 (incorrect) to 3 (fully correct).
+
+  - profile_id: paper-llm100-v1
+    compatibility: approximate
+    scale_min: 0
+    scale_max: 100
+    score_field: score
+    transform: identity
+    scorer_model: paper-reported-judge-unspecified
+    system_prompt: >-
+      Evaluate whether the candidate correctly and completely answers the
+      question given the reference. Return JSON only as {"score": N}, where N
+      is a number from 0 (incorrect) to 100 (fully correct).
+
+  - profile_id: qwen-structured-v1
+    compatibility: modern_extension
+    scale_min: 1
+    scale_max: 5
+    score_field: correctness
+    transform: linear_1_5_to_0_100
+    scorer_model: qwen3.7-max
+    system_prompt: >-
+      Judge candidate correctness against the question, reference, and
+      evidence. Return JSON only as {"correctness": N}, with an integer N from
+      1 (incorrect) to 5 (fully correct).
+
+  - profile_id: cross-family-v1
+    compatibility: modern_extension
+    scale_min: 1
+    scale_max: 5
+    score_field: correctness
+    transform: linear_1_5_to_0_100
+    scorer_model: cross-family-api-judge
+    system_prompt: >-
+      Independently judge candidate correctness against the question,
+      reference, and evidence. Return JSON only as {"correctness": N}, with an
+      integer N from 1 (incorrect) to 5 (fully correct).

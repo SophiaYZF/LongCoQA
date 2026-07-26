@@ -1,0 +1,17 @@
+seed: 42
+
+data:
+  p1_manifest: data/splits/p1_dialogue_split.json
+  alignment: artifacts/alignments/evidence_alignment.jsonl
+  children: artifacts/corpus/children.jsonl
+  hard_negative_retrieval: reports/generated/retrieval/qwen3_embedding_current_question.jsonl
+  bm25_index: artifacts/indices/bm25_children.json.gz
+  novel_dir: data/novel
+  novel_encoding: gb18030
+  output_dir: artifacts/training
+  hard_negatives: 4
+  unannotated_evidence_policy: exclude
+  raft_gold_probability: 0.80
+  raft_gold_only_probability: 0.10
+  cpt_chunk_chars: 8000
+  cpt_overlap_chars: 500

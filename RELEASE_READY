@@ -1,0 +1,4 @@
+schema_version=longcoqa-anonymous-release-v1
+data_manifest=data/SHA256SUMS
+validation=passed
+git_initialized=true

@@ -1,0 +1,22 @@
+seed: 42
+provider: qwen37
+cache: runtime/api_cache.sqlite3
+alignment: artifacts/alignments/evidence_alignment.jsonl
+protocols:
+  - z0_current
+  - z1_teacher_forced
+  - g0_released_gold
+  - g3_aligned_raw
+generation:
+  temperature: 0.0
+  max_tokens_factoid: 256
+  max_tokens_non_factoid: 768
+smoke:
+  samples: 50
+  protocol: z1_teacher_forced
+  output_root: outputs/inference/qwen37
+  output_dir: outputs/inference/qwen37/z1_teacher_forced/smoke50
+judge:
+  provider: qwen37
+  max_tokens: 512
+  cache: runtime/judge_cache.sqlite3

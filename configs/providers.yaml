@@ -1,0 +1,25 @@
+providers:
+  qwen37:
+    protocol: openai
+    base_url_env: DASHSCOPE_BASE_URL
+    api_key_env:
+      - DASHSCOPE_API_KEY
+      - DASHSCOPE_API_KEYS
+    model_env: DASHSCOPE_MODEL_ID
+    default_model: qwen3.7-max
+    concurrency: 4
+    requests_per_minute: 30
+    timeout_seconds: 180
+    max_retries: 8
+
+  anthropic:
+    protocol: anthropic
+    base_url_env: ANTHROPIC_BASE_URL
+    api_key_env:
+      - ANTHROPIC_AUTH_TOKEN
+    model_env: ANTHROPIC_MODEL
+    default_model: claude-opus-4-6
+    concurrency: 1
+    requests_per_minute: 10
+    timeout_seconds: 300
+    max_retries: 6

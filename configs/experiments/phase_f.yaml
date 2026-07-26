@@ -1,0 +1,52 @@
+seed: 42
+
+p1_inference:
+  model_config: configs/models/qwen3_5_9b.yaml
+  gpu_memory_utilization: 0.90
+  max_num_seqs: 128
+  max_num_batched_tokens: 65536
+  enable_chunked_prefill: true
+  max_lora_rank: 64
+  generation:
+    temperature: 0.0
+    max_tokens_factoid: 256
+    max_tokens_non_factoid: 768
+  model_variants:
+    base:
+      adapter_path: null
+    conversation:
+      adapter_path: outputs/training/qwen3_5_9b_conversation_lora
+    grounded:
+      adapter_path: outputs/training/qwen3_5_9b_grounded_lora
+    raft:
+      adapter_path: outputs/training/qwen3_5_9b_raft_lora
+  eval_sets:
+    conversation:
+      path: artifacts/training/conversation_test.jsonl
+      expected_samples: 602
+    grounded:
+      path: artifacts/training/grounded_test.jsonl
+      expected_samples: 539
+    raft:
+      path: artifacts/training/raft_test.jsonl
+      expected_samples: 539
+
+p1_judge:
+  provider: qwen37
+  cache: runtime/p1_judge_cache.sqlite3
+  input_root: outputs/formal/p1/merged
+  output_root: outputs/judgments/qwen37/p1
+  max_tokens: 512
+  expected_samples:
+    conversation: 602
+    grounded: 539
+    raft: 539
+  model_variants:
+    - base
+    - conversation
+    - grounded
+    - raft
+  eval_variants:
+    - conversation
+    - grounded
+    - raft

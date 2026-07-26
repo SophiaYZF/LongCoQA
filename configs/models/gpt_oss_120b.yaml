@@ -1,0 +1,16 @@
+name: gpt-oss-120b
+path: models/openai/gpt-oss-120b
+revision: b5c939de8f754692c1647ca79fbf85e8c1e70f8a
+dtype: auto
+cuda_visible_devices: "0"
+tensor_parallel_size: 1
+gpu_memory_utilization: 0.88
+max_model_len: 32768
+max_num_seqs: 64
+max_tokens_factoid: 2048
+max_tokens_non_factoid: 2048
+trust_remote_code: false
+enforce_eager: false
+response_format: harmony
+reasoning_effort: low
+output_root: outputs/inference/gpt_oss_120b

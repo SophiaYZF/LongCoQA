@@ -1,0 +1,95 @@
+seed: 42
+children: artifacts/corpus/children.jsonl
+parents: artifacts/corpus/parents.jsonl
+alignment: artifacts/alignments/evidence_alignment.jsonl
+bm25_index: artifacts/indices/bm25_children.json.gz
+dense_index: artifacts/indices/qwen3_embedding_children.npz
+retrieval_reports: reports/generated/retrieval
+
+reranker:
+  model_path: models/Qwen/Qwen3-Reranker-4B
+  revision: 22e683669bc0f0bd69640a1354a6d0aebcfeede5
+  candidates: reports/generated/retrieval/hybrid_rrf_current_question.jsonl
+  output_dir: reports/generated/rag/reranker_current
+  instruction: >-
+    Given a Chinese multi-turn question about a novel, determine whether the
+    passage contains evidence needed to answer the current question.
+  candidate_k: 50
+  output_k: 20
+  max_model_len: 4096
+  max_num_seqs: 512
+  gpu_memory_utilization: 0.90
+  batch_size: 2048
+
+rag:
+  top_k: 10
+  parent_expansion: true
+  chronological_assembly: true
+  contexts: artifacts/rag/rewritten_parent_top10.jsonl
+
+rewrite:
+  model_path: models/Qwen/Qwen3.5-9B
+  model_revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+  output: reports/generated/rag/query_rewrites.jsonl
+  gpu_memory_utilization: 0.90
+  max_model_len: 8192
+  max_num_seqs: 256
+
+rewritten_retrieval:
+  embedding_model_path: models/Qwen/Qwen3-Embedding-4B
+  dense_index: artifacts/indices/qwen3_embedding_children.npz
+  output_dir: reports/generated/rag/rewritten_dense
+  dimensions: 1024
+  top_k: 100
+  gpu_memory_utilization: 0.90
+  max_model_len: 2048
+  max_num_seqs: 512
+
+contextual_retrieval:
+  context_model_path: models/Qwen/Qwen3.5-9B
+  context_model_revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+  embedding_model_path: models/Qwen/Qwen3-Embedding-4B
+  corpus: artifacts/corpus/contextual_children.jsonl
+  dense_index: artifacts/indices/contextual_qwen3_embedding_children.npz
+  bm25_index: artifacts/indices/contextual_bm25_children.json.gz
+  output_dir: reports/generated/rag/contextual_retrieval
+  generation_batch_size: 512
+  dimensions: 1024
+  top_k: 100
+  gpu_memory_utilization: 0.90
+  context_max_model_len: 4096
+  embedding_max_model_len: 2048
+  max_num_seqs: 256
+
+graph_progressive:
+  official_repository: external/ChainRAG
+  official_commit: 0f115b1fa03698b5d9cd2662a26dfdfde62d074a
+  base_rankings: reports/generated/rag/rewritten_dense/all_results.jsonl
+  output_dir: reports/generated/rag/graph_progressive
+  semantic_k: 10
+  position_window: 3
+  seed_k: 3
+  steps: 3
+  top_k: 100
+
+progressive_retrieval:
+  planner_model_path: models/Qwen/Qwen3.5-9B
+  embedding_model_path: models/Qwen/Qwen3-Embedding-4B
+  base_rankings: reports/generated/rag/rewritten_dense/all_results.jsonl
+  plans: reports/generated/rag/progressive/plans.jsonl
+  output_dir: reports/generated/rag/progressive
+  seed_k: 3
+  batch_size: 256
+  dimensions: 1024
+  top_k: 100
+  gpu_memory_utilization: 0.90
+  planner_max_model_len: 4096
+  embedding_max_model_len: 2048
+  max_num_seqs: 256
+
+hipporag2:
+  official_repository: external/HippoRAG
+  official_commit: 1e8f60981bf760b64003aa5bf5668126d0c106b3
+  corpus: artifacts/hipporag2/longcoqa_parents.json
+  queries: artifacts/hipporag2/longcoqa_queries.json
+  output_dir: reports/generated/rag/hipporag2

@@ -1,0 +1,43 @@
+p0_rag_formal:
+  provider: qwen37
+  expected_samples: 3019
+  cache_path: runtime/p0_rag_formal/qwen37_cache.sqlite3
+  output_root: outputs/judgments/qwen37/p0_rag
+  evidence_alignment_path: artifacts/alignments/evidence_alignment.jsonl
+  parents_path: artifacts/corpus/parents.jsonl
+  cells:
+    - cell_id: qwen3_5_9b/z1
+      input_path: outputs/formal/main/qwen3_5_9b/z1_teacher_forced/full/results.jsonl
+      tasks: [answer_quality]
+      evidence_mode: none
+      citation_mode: none
+    - cell_id: qwen3_5_9b/g0
+      input_path: outputs/formal/main/qwen3_5_9b/g0_released_gold/full/results.jsonl
+      tasks: [answer_quality, rag_quality]
+      evidence_mode: released_gold
+      citation_mode: not_requested
+    - cell_id: qwen3_5_9b/rewritten_dense
+      input_path: outputs/rag/qwen3_5_9b_rewritten_parent_top10/merged/results.jsonl
+      tasks: [answer_quality, rag_quality]
+      evidence_mode: retrieved
+      citation_mode: retrieved_positions
+    - cell_id: qwen3_5_9b/contextual
+      input_path: outputs/rag/qwen3_5_9b_contextual_parent_top10/merged/results.jsonl
+      tasks: [answer_quality, rag_quality]
+      evidence_mode: retrieved
+      citation_mode: retrieved_positions
+    - cell_id: qwen3_5_9b/graph_progressive
+      input_path: outputs/rag/qwen3_5_9b_graph_progressive_parent_top10/merged/results.jsonl
+      tasks: [answer_quality, rag_quality]
+      evidence_mode: retrieved
+      citation_mode: retrieved_positions
+    - cell_id: qwen3_5_9b/progressive
+      input_path: outputs/rag/qwen3_5_9b_progressive_parent_top10/merged/results.jsonl
+      tasks: [answer_quality, rag_quality]
+      evidence_mode: retrieved
+      citation_mode: retrieved_positions
+    - cell_id: qwen3_5_9b/hipporag2
+      input_path: outputs/rag/qwen3_5_9b_hipporag2_parent_top10/merged/results.jsonl
+      tasks: [answer_quality, rag_quality]
+      evidence_mode: retrieved
+      citation_mode: retrieved_positions

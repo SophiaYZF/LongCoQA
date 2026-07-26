@@ -1,0 +1,64 @@
+p0_nonfactoid_main:
+  provider: qwen37
+  expected_source_samples: 3019
+  expected_nonfactoid_samples: 1847
+  tasks: [claim_recall, judge_100]
+  cache_path: runtime/p0_nonfactoid_main/qwen37_cache.sqlite3
+  output_root: outputs/judgments/qwen37/p0_nonfactoid_main
+  cells:
+    - cell_id: qwen3_8b/z1_teacher_forced
+      input_path: outputs/formal/models/qwen3_8b/z1_teacher_forced/full/results.jsonl
+      expected_model: Qwen3-8B
+      protocol: z1_teacher_forced
+    - cell_id: qwen3_8b/g3_aligned_raw
+      input_path: outputs/formal/models/qwen3_8b/g3_aligned_raw/full/results.jsonl
+      expected_model: Qwen3-8B
+      protocol: g3_aligned_raw
+    - cell_id: qwen3_5_9b/z1_teacher_forced
+      input_path: outputs/formal/main/qwen3_5_9b/z1_teacher_forced/full/results.jsonl
+      expected_model: Qwen3.5-9B
+      protocol: z1_teacher_forced
+    - cell_id: qwen3_5_9b/g3_aligned_raw
+      input_path: outputs/formal/main/qwen3_5_9b/g3_aligned_raw/full/results.jsonl
+      expected_model: Qwen3.5-9B
+      protocol: g3_aligned_raw
+    - cell_id: qwen3_6_27b/z1_teacher_forced
+      input_path: outputs/formal/main/qwen3_6_27b/z1_teacher_forced/full/results.jsonl
+      expected_model: Qwen3.6-27B
+      protocol: z1_teacher_forced
+    - cell_id: qwen3_6_27b/g3_aligned_raw
+      input_path: outputs/formal/main/qwen3_6_27b/g3_aligned_raw/full/results.jsonl
+      expected_model: Qwen3.6-27B
+      protocol: g3_aligned_raw
+    - cell_id: glm4_7_flash/z1_teacher_forced
+      input_path: outputs/formal/models/glm4_7_flash/z1_teacher_forced/full/results.jsonl
+      expected_model: GLM-4.7-Flash
+      protocol: z1_teacher_forced
+    - cell_id: glm4_7_flash/g3_aligned_raw
+      input_path: outputs/formal/models/glm4_7_flash/g3_aligned_raw/full/results.jsonl
+      expected_model: GLM-4.7-Flash
+      protocol: g3_aligned_raw
+    - cell_id: qwen3_5_35b_a3b/z1_teacher_forced
+      input_path: outputs/formal/models/qwen3_5_35b_a3b/z1_teacher_forced/full/results.jsonl
+      expected_model: Qwen3.5-35B-A3B
+      protocol: z1_teacher_forced
+    - cell_id: qwen3_5_35b_a3b/g3_aligned_raw
+      input_path: outputs/formal/models/qwen3_5_35b_a3b/g3_aligned_raw/full/results.jsonl
+      expected_model: Qwen3.5-35B-A3B
+      protocol: g3_aligned_raw
+    - cell_id: gpt_oss_120b/z1_teacher_forced
+      input_path: outputs/formal/models/gpt_oss_120b/z1_teacher_forced/full/results.jsonl
+      expected_model: gpt-oss-120b
+      protocol: z1_teacher_forced
+    - cell_id: gpt_oss_120b/g3_aligned_raw
+      input_path: outputs/formal/models/gpt_oss_120b/g3_aligned_raw/full/results.jsonl
+      expected_model: gpt-oss-120b
+      protocol: g3_aligned_raw
+    - cell_id: qwen37/z1_teacher_forced
+      input_path: outputs/formal/models/qwen37/z1_teacher_forced/full/results.jsonl
+      expected_model: qwen3.7-max
+      protocol: z1_teacher_forced
+    - cell_id: qwen37/g3_aligned_raw
+      input_path: outputs/formal/models/qwen37/g3_aligned_raw/full/results.jsonl
+      expected_model: qwen3.7-max
+      protocol: g3_aligned_raw

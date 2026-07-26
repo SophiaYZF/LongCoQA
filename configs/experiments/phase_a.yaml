@@ -1,0 +1,21 @@
+seed: 42
+data:
+  factoid_csv: data/LongCoQA_factoid.csv
+  non_factoid_csv: data/LongCoQA_non_factoid.csv
+  evidence_csv: data/LongCoQA_evidence.csv
+  novel_dir: data/novel
+manifests:
+  output_dir: artifacts/manifests
+  p1_ratios:
+    train: 0.70
+    dev: 0.10
+    test: 0.20
+  split_search:
+    restarts: 24
+    local_steps: 4000
+    duplicate_question_penalty: 1000.0
+    evidence_cut_weight: 1.0
+providers:
+  config: configs/providers.yaml
+  cache: runtime/api_cache.sqlite3
+

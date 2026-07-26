@@ -1,0 +1,12 @@
+name: Qwen3.6-27B
+path: models/Qwen/Qwen3.6-27B
+revision: 6a9e13bd6fc8f0983b9b99948120bc37f49c13e9
+dtype: bfloat16
+cuda_visible_devices: "1"
+tensor_parallel_size: 1
+gpu_memory_utilization: 0.90
+max_model_len: 32768
+max_num_seqs: 64
+trust_remote_code: false
+enforce_eager: false
+output_root: outputs/inference/qwen3_6_27b

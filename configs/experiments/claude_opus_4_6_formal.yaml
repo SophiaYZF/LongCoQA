@@ -1,0 +1,26 @@
+schema_version: longcoqa-claude-opus-46-formal-v1
+seed: 42
+provider: anthropic
+model: claude-opus-4-6
+alignment: artifacts/alignments/evidence_alignment.jsonl
+output_root: outputs/formal/models/claude_opus_4_6
+runtime_root: runtime/claude_opus_4_6_formal
+cache: runtime/claude_opus_4_6_formal/api_cache.sqlite3
+expected_samples: 3019
+protocols:
+  - z1_teacher_forced
+  - z2_free_running
+  - g3_aligned_raw
+generation:
+  temperature: 0.0
+  max_tokens_factoid: 256
+  max_tokens_non_factoid: 768
+canary:
+  dialogues_per_type: 2
+tiers:
+  primary:
+    concurrency: 8
+    requests_per_minute: 60
+  fallback:
+    concurrency: 4
+    requests_per_minute: 30

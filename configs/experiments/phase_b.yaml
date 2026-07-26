@@ -1,0 +1,46 @@
+seed: 42
+corpus:
+  novel_dir: data/novel
+  output_dir: artifacts/corpus
+  encoding: gb18030
+  legacy_short_paragraph_chars: 50
+  parent_target_chars: 900
+  parent_max_chars: 1200
+  child_target_chars: 220
+  child_max_chars: 320
+alignment:
+  evidence_csv: data/LongCoQA_evidence.csv
+  corpus_dir: artifacts/corpus
+  output_dir: artifacts/alignments
+  candidate_window: 96
+  high_similarity: 0.24
+  medium_similarity: 0.14
+  structural_min_similarity: 0.08
+  high_margin: 0.025
+retrieval:
+  children: artifacts/corpus/children.jsonl
+  alignment: artifacts/alignments/evidence_alignment.jsonl
+  index: artifacts/indices/bm25_children.json.gz
+  output_dir: reports/generated/retrieval
+  k1: 1.2
+  b: 0.75
+  query_modes:
+    - current_question
+    - history_questions
+dense:
+  model_path: models/Qwen/Qwen3-Embedding-4B
+  children: artifacts/corpus/children.jsonl
+  alignment: artifacts/alignments/evidence_alignment.jsonl
+  bm25_index: artifacts/indices/bm25_children.json.gz
+  index: artifacts/indices/qwen3_embedding_children.npz
+  output_dir: reports/generated/retrieval
+  dimensions: 1024
+  gpu_memory_utilization: 0.90
+  max_model_len: 2048
+  max_num_seqs: 512
+  query_modes:
+    - current_question
+    - history_questions
+  query_instruction: >-
+    Given a Chinese multi-turn question about a novel, retrieve passages that
+    provide the evidence needed to answer it.

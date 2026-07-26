@@ -1,0 +1,34 @@
+reviewed_at: "2026-07-20"
+reviewer: codex_visual_text_comparison
+selection: all_automatic_low_confidence_alignments_from_phase_b_v1
+confirmed_alignment_ids:
+  - 548
+  - 778
+  - 818
+  - 1018
+  - 1315
+  - 2438
+  - 2587
+  - 2854
+  - 3180
+  - 3317
+  - 3352
+  - 3670
+  - 5063
+  - 5272
+  - 6799
+  - 6804
+  - 6925
+  - 10835
+  - 13216
+  - 14795
+  - 14975
+unverifiable_released_evidence_ids:
+  - 1724
+  - 2265
+notes: >-
+  The 21 verifiable low-overlap pairs describe the same event and entities.
+  Evidence 1724 and 2265 contain generation-procedure text rather than novel
+  evidence, so their semantic alignment cannot be verified from the released
+  evidence value; their source position is inferred only from the monotonic ID
+  reconstruction.

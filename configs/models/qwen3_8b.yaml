@@ -1,0 +1,12 @@
+name: Qwen3-8B
+path: models/Qwen/Qwen3-8B
+revision: b968826d9c46dd6066d109eabc6255188de91218
+dtype: bfloat16
+cuda_visible_devices: "0"
+tensor_parallel_size: 1
+gpu_memory_utilization: 0.90
+max_model_len: 32768
+max_num_seqs: 128
+trust_remote_code: false
+enforce_eager: false
+output_root: outputs/inference/qwen3_8b

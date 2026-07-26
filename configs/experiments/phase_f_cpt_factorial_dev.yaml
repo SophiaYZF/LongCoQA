@@ -1,0 +1,33 @@
+seed: 42
+
+p1_inference:
+  model_config: configs/models/qwen3_5_9b.yaml
+  expected_split: dev
+  gpu_memory_utilization: 0.90
+  max_num_seqs: 128
+  max_num_batched_tokens: 65536
+  enable_chunked_prefill: true
+  max_lora_rank: 64
+  generation:
+    temperature: 0.0
+    max_tokens_factoid: 256
+    max_tokens_non_factoid: 768
+  model_variants:
+    cpt_raw_aggressive:
+      adapter_path: outputs/training/qwen3_5_9b_cpt_lora
+    cpt_clean_aggressive:
+      adapter_path: outputs/training/qwen3_5_9b_cpt_clean_lora
+    cpt_raw_conservative:
+      adapter_path: outputs/training/qwen3_5_9b_cpt_conservative_lora
+    cpt_clean_conservative:
+      adapter_path: outputs/training/qwen3_5_9b_cpt_clean_conservative_lora
+  eval_sets:
+    conversation:
+      path: artifacts/training/conversation_dev.jsonl
+      expected_samples: 284
+    grounded:
+      path: artifacts/training/grounded_dev.jsonl
+      expected_samples: 247
+    raft:
+      path: artifacts/training/raft_dev.jsonl
+      expected_samples: 247

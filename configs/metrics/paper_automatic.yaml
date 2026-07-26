@@ -1,0 +1,58 @@
+schema_version: longcoqa-paper-metric-profiles-v1
+profiles:
+  - profile_id: longcoqa-paper-lexical-v1
+    metrics:
+      - exact_match
+      - exact_match_contain
+      - recall
+      - bleu_2
+      - rouge_l
+    compatibility: paper_named_locked
+    implementation: longcoqa.evaluation.paper_metrics
+    normalization: zh_alnum_lower
+    tokenization: character
+    options:
+      bleu_smoothing: add_one
+
+  - profile_id: longcoqa-bertscore-mbert-v1
+    metrics:
+      - bertscore_precision
+      - bertscore_recall
+      - bertscore_f1
+    compatibility: paper_named_locked
+    implementation: bert-score
+    normalization: none
+    tokenization: model_tokenizer
+    model_id: google-bert/bert-base-multilingual-cased
+    model_revision: 3f076fdb1ab68d5b2880cb87a0886f315b8146f8
+    options:
+      max_length: 512
+      num_layers: 9
+      precision_metric: bertscore_precision
+      recall_metric: bertscore_recall
+      f1_metric: bertscore_f1
+
+  - profile_id: longcoqa-bartscore-cnn-v1
+    metrics:
+      - bartscore
+    compatibility: paper_named_locked
+    implementation: transformers-seq2seq-log-likelihood
+    normalization: none
+    tokenization: model_tokenizer
+    model_id: facebook/bart-large-cnn
+    model_revision: 37f520fa929c961707657b28798b30c003dd100b
+    options:
+      direction: reference_to_prediction
+      max_length: 1024
+
+  - profile_id: longcoqa-bleurt20-v1
+    metrics:
+      - bleurt
+    compatibility: paper_named_locked
+    implementation: bleurt-pytorch
+    normalization: none
+    tokenization: model_tokenizer
+    model_id: lucadiliello/BLEURT-20
+    model_revision: e22b9eb071dcb939da9fff08b20a7e746c72a830
+    options:
+      max_length: 512
